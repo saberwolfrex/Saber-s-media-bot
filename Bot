@@ -25,73 +25,25 @@
     box-sizing:border-box;
   }
 
-  .left {
-    width: 380px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    align-items:center;
-  }
-
-  .frame-card {
-    width: 360px;
-    height: 640px; /* 9:16 */
-    background:#000;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow: 0 8px 30px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.04);
-    position: relative;
-  }
-
+  .left { width: 380px; display:flex; flex-direction:column; gap:14px; align-items:center; }
+  .frame-card { width: 360px; height: 640px; background:#000; border-radius:12px; overflow:hidden; box-shadow:0 8px 30px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); position: relative; }
   canvas { display:block; width:100%; height:100%; background:#000; }
 
-  .controls {
-    width:360px;
-    background:var(--card);
-    border-radius:12px;
-    padding:12px;
-    box-sizing:border-box;
-    box-shadow: 0 6px 20px rgba(2,6,23,0.6);
-  }
-
+  .controls { width:360px; background:var(--card); border-radius:12px; padding:12px; box-sizing:border-box; box-shadow: 0 6px 20px rgba(2,6,23,0.6); }
   .controls h3 { margin:0 0 8px 0; font-size:15px; }
   label { display:block; font-size:13px; color:var(--muted); margin-top:8px; }
-  input[type="file"]{ width:100%; }
-  input[type="range"]{ width:100%; }
-  input[type="text"], select {
-    width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04);
-    background:transparent; color:inherit; box-sizing:border-box;
-  }
+  input[type="file"], input[type="range"], input[type="text"], select { width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit; box-sizing:border-box; }
   .row { display:flex; gap:8px; }
-  .btn {
-    background: linear-gradient(180deg,var(--accent), #0891b2);
-    color:#032025; border:none; padding:10px 12px; border-radius:10px; cursor:pointer;
-    font-weight:600; box-shadow: 0 6px 18px rgba(6,182,212,0.14);
-  }
+  .btn { background: linear-gradient(180deg,var(--accent), #0891b2); color:#032025; border:none; padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:600; box-shadow:0 6px 18px rgba(6,182,212,0.14);}
   .btn.ghost { background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04);}
   .muted { color:var(--muted); font-size:13px; margin-top:6px; }
 
-  .side {
-    width:360px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
-
-  .panel {
-    background:var(--panel);
-    padding:12px;
-    border-radius:12px;
-    box-shadow: 0 6px 20px rgba(2,6,23,0.6);
-  }
-
+  .side { width:360px; display:flex; flex-direction:column; gap:12px; }
+  .panel { background:var(--panel); padding:12px; border-radius:12px; box-shadow: 0 6px 20px rgba(2,6,23,0.6); }
   .preview-meta { font-size:13px; color:var(--muted); margin-top:6px; }
   .flex-between { display:flex; justify-content:space-between; align-items:center; gap:10px; }
-
   footer { font-size:12px; color:var(--muted); text-align:center; margin-top:6px; }
 
-  /* small screens */
   @media (max-width:900px){
     body { flex-direction:column; align-items:center; padding:12px; }
     .left,.side { width:100%; max-width:420px; }
@@ -101,13 +53,10 @@
 <body>
 
 <div class="left">
-  <div style="display:flex;gap:12px;align-items:center;">
-    <h2 style="margin:0;font-size:18px;">Template Editor — 9:16 (TikTok)</h2>
-  </div>
+  <h2 style="margin:0;font-size:18px;">Template Editor — 9:16 (TikTok)</h2>
 
   <div class="frame-card" id="frameCard" aria-label="9 by 16 preview">
     <canvas id="outputCanvas" width="360" height="640"></canvas>
-    <!-- the canvas is the composed preview: video + logo + text -->
   </div>
 
   <div class="controls">
@@ -117,12 +66,24 @@
       <input id="videoFile" type="file" accept="video/*" />
     </label>
 
-    <label>Logo (fixed top-left) — you can replace it if needed
-      <input id="logoFile" type="file" accept="image/*" />
+    <label>Logo (GIF or image)
+      <input id="logoFile" type="file" accept="image/*,image/gif" />
+    </label>
+
+    <label>Logo size
+      <input id="logoSize" type="range" min="20" max="200" step="1" value="56" />
+    </label>
+
+    <label>Logo Y position
+      <input id="logoY" type="range" min="0" max="600" step="1" value="12" />
     </label>
 
     <label>Overlay Text
       <input id="textInput" type="text" value="your text here" />
+    </label>
+
+    <label>Text Y position
+      <input id="textY" type="range" min="0" max="600" step="1" value="12" />
     </label>
 
     <div class="row" style="margin-top:8px;">
@@ -167,9 +128,7 @@
     <div class="muted" id="status">Status: idle</div>
   </div>
 
-  <footer>
-    Visitors do not need accounts. Host on GitHub Pages / Netlify / Vercel.
-  </footer>
+  <footer>Visitors do not need accounts. Host on GitHub Pages / Netlify / Vercel.</footer>
 </div>
 
 <div class="side">
@@ -178,14 +137,14 @@
       <strong>Preview info</strong>
       <span class="preview-meta">9:16 • 360×640 canvas</span>
     </div>
-    <p class="muted">Logo position: top-left. Text appears next to the logo. You can zoom and move the video inside the frame — the canvas will record exactly what you see.</p>
+    <p class="muted">Logo position: adjustable. Text appears next to the logo with wrapping. Video can be zoomed and panned inside the frame.</p>
   </div>
 
   <div class="panel">
     <strong>Download & conversion notes</strong>
     <ul style="color:var(--muted);padding-left:18px;margin:8px 0;">
-      <li>Recording exports as <strong>.webm</strong> (widely supported). MP4 conversion in-browser is offered but may be slow on some devices.</li>
-      <li>If MP4 conversion is too slow, download the WEBM and convert locally with HandBrake or ffmpeg on your computer for faster results.</li>
+      <li>Recording exports as <strong>.webm</strong>. MP4 conversion in-browser may be slow.</li>
+      <li>If MP4 conversion is slow, download WEBM and convert offline with HandBrake or ffmpeg.</li>
     </ul>
     <div style="display:flex;gap:8px;margin-top:6px;">
       <button id="resetBtn" class="btn ghost">Reset Controls</button>
@@ -194,314 +153,239 @@
 
   <div class="panel">
     <strong>Preview / Quick tips</strong>
-    <p class="muted">Recommended: use a reasonably small video (under 100MB) for best browser performance. For long videos, trim before uploading.</p>
+    <p class="muted">Recommended: use a reasonably small video (under 100MB) for best browser performance.</p>
   </div>
 </div>
 
 <script type="module">
-  // Module-scope variables
-  const canvas = document.getElementById('outputCanvas');
-  const ctx = canvas.getContext('2d', { alpha: false });
+const canvas = document.getElementById('outputCanvas');
+const ctx = canvas.getContext('2d', { alpha: false });
 
-  const videoFile = document.getElementById('videoFile');
-  const logoFile = document.getElementById('logoFile');
-  const textInput = document.getElementById('textInput');
-  const fontSizeInput = document.getElementById('fontSize');
-  const fontWeightSelect = document.getElementById('fontWeight');
-  const zoomInput = document.getElementById('zoom');
-  const moveXInput = document.getElementById('moveX');
-  const moveYInput = document.getElementById('moveY');
-  const startRecordBtn = document.getElementById('startRecord');
-  const stopRecordBtn = document.getElementById('stopRecord');
-  const downloadBtn = document.getElementById('downloadBtn');
-  const convertMp4Btn = document.getElementById('convertMp4');
-  const status = document.getElementById('status');
-  const resetBtn = document.getElementById('resetBtn');
+const videoFile = document.getElementById('videoFile');
+const logoFile = document.getElementById('logoFile');
+const textInput = document.getElementById('textInput');
+const fontSizeInput = document.getElementById('fontSize');
+const fontWeightSelect = document.getElementById('fontWeight');
+const zoomInput = document.getElementById('zoom');
+const moveXInput = document.getElementById('moveX');
+const moveYInput = document.getElementById('moveY');
+const textYInput = document.getElementById('textY');
+const logoSizeInput = document.getElementById('logoSize');
+const logoYInput = document.getElementById('logoY');
 
-  // Elements
-  let videoEl = document.createElement('video');
-  videoEl.muted = true;
-  videoEl.playsInline = true;
-  videoEl.loop = true;
-  videoEl.autoplay = false;
+const startRecordBtn = document.getElementById('startRecord');
+const stopRecordBtn = document.getElementById('stopRecord');
+const downloadBtn = document.getElementById('downloadBtn');
+const convertMp4Btn = document.getElementById('convertMp4');
+const resetBtn = document.getElementById('resetBtn');
+const status = document.getElementById('status');
 
-  // Logo: default placeholder uses YOUR_LOGO.png (replace on server), but user can upload to override
-  let logoImg = new Image();
-  logoImg.src = 'YOUR_LOGO.png'; // change file on hosting or upload via control
-  logoImg.onload = () => { /* ready */ };
-  logoImg.onerror = ()=> { /* if missing, it's ok */ };
+let videoEl = document.createElement('video');
+videoEl.muted = true;
+videoEl.playsInline = true;
+videoEl.loop = true;
+videoEl.autoplay = false;
 
-  // State
-  let recordingChunks = [];
-  let mediaRecorder = null;
-  let recordedBlob = null;
-  let rafId = null;
+let logoImg = new Image();
+logoImg.src = 'YOUR_LOGO.png';
 
-  // Canvas drawing parameters
-  function drawFrame(){
-    // Clear
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+let recordingChunks = [];
+let mediaRecorder = null;
+let recordedBlob = null;
+let rafId = null;
 
-    // Draw video (centered, with zoom and pan)
-    if(videoEl.readyState >= 2){
-      // compute draw sizes preserving aspect ratio
-      const vw = videoEl.videoWidth;
-      const vh = videoEl.videoHeight;
-      if (vw && vh){
-        const canvasW = canvas.width;
-        const canvasH = canvas.height;
-
-        // desired scale based on zoom input
-        const scale = parseFloat(zoomInput.value) || 1;
-
-        // fit video to canvas initially: scale to cover (object-fit: cover)
-        const scaleX = canvasW / vw;
-        const scaleY = canvasH / vh;
-        const baseScale = Math.max(scaleX, scaleY); // cover behavior
-
-        const drawW = vw * baseScale * scale;
-        const drawH = vh * baseScale * scale;
-
-        // pan offsets from inputs
-        const moveX = parseFloat(moveXInput.value) || 0;
-        const moveY = parseFloat(moveYInput.value) || 0;
-
-        const dx = (canvasW / 2) - (drawW / 2) + moveX;
-        const dy = (canvasH / 2) - (drawH / 2) + moveY;
-
-        ctx.drawImage(videoEl, 0, 0, vw, vh, dx, dy, drawW, drawH);
-      }
+// Helper: wrap text
+function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+  const words = text.split(' ');
+  let line = '';
+  for (let n = 0; n < words.length; n++){
+    const testLine = line + words[n] + ' ';
+    const metrics = ctx.measureText(testLine);
+    if(metrics.width > maxWidth && n > 0){
+      ctx.fillText(line, x, y);
+      line = words[n] + ' ';
+      y += lineHeight;
     } else {
-      // placeholder text
-      ctx.fillStyle = '#111827';
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle = '#9ca3af';
-      ctx.font = '16px system-ui, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('Upload a video to preview', canvas.width/2, canvas.height/2);
+      line = testLine;
     }
+  }
+  ctx.fillText(line, x, y);
+}
 
-    // Draw logo at top-left with margin
-    const logoMargin = 12;
-    const logoHeight = 56; // fixed height
-    if(logoImg && logoImg.complete && logoImg.naturalWidth){
-      const aspect = logoImg.naturalWidth / logoImg.naturalHeight;
-      const lw = Math.round(logoHeight * aspect);
-      const lh = logoHeight;
-      ctx.drawImage(logoImg, logoMargin, logoMargin, lw, lh);
+// Draw loop
+function drawFrame(){
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
-      // Draw text next to logo (vertically centered to logo)
-      const txt = textInput.value || '';
-      const fontSize = parseInt(fontSizeInput.value || 22, 10);
-      const fontWeight = fontWeightSelect.value || '700';
-      ctx.font = `${fontWeight} ${fontSize}px Inter, system-ui, sans-serif`;
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#ffffff';
-      ctx.textAlign = 'left';
-      const textX = logoMargin + lw + 12;
-      const textY = logoMargin + (lh / 2);
-      // add subtle shadow for readability
-      ctx.shadowColor = 'rgba(0,0,0,0.6)';
-      ctx.shadowBlur = 6;
-      ctx.fillText(txt, textX, textY);
-      ctx.shadowBlur = 0;
-    } else {
-      // If no logo, still show text at top-left
-      const txt = textInput.value || '';
-      const fontSize = parseInt(fontSizeInput.value || 22, 10);
-      const fontWeight = fontWeightSelect.value || '700';
-      ctx.font = `${fontWeight} ${fontSize}px Inter, system-ui, sans-serif`;
-      ctx.textBaseline = 'top';
-      ctx.fillStyle = '#ffffff';
-      ctx.textAlign = 'left';
-      ctx.fillText(txt, 12, 12);
+  if(videoEl.readyState >= 2){
+    const vw = videoEl.videoWidth;
+    const vh = videoEl.videoHeight;
+    if(vw && vh){
+      const canvasW = canvas.width;
+      const canvasH = canvas.height;
+
+      const scale = parseFloat(zoomInput.value) || 1;
+      const baseScale = Math.max(canvasW/vw, canvasH/vh);
+      const drawW = vw*baseScale*scale;
+      const drawH = vh*baseScale*scale;
+      const moveX = parseFloat(moveXInput.value)||0;
+      const moveY = parseFloat(moveYInput.value)||0;
+      const dx = (canvasW/2) - (drawW/2) + moveX;
+      const dy = (canvasH/2) - (drawH/2) + moveY;
+
+      ctx.drawImage(videoEl, 0,0,vw,vh,dx,dy,drawW,drawH);
     }
-
-    rafId = requestAnimationFrame(drawFrame);
   }
 
-  // Start the animation loop
+  // Draw logo
+  const logoMarginX = 12;
+  const logoHeight = parseFloat(logoSizeInput.value)||56;
+  const logoY = parseFloat(logoYInput.value)||12;
+  if(logoImg && logoImg.complete && logoImg.naturalWidth){
+    const aspect = logoImg.naturalWidth/logoImg.naturalHeight;
+    const lw = logoHeight * aspect;
+    const lh = logoHeight;
+    ctx.drawImage(logoImg, logoMarginX, logoY, lw, lh);
+
+    // Draw text next to logo
+    const txt = textInput.value || '';
+    const fontSize = parseInt(fontSizeInput.value||22,10);
+    const fontWeight = fontWeightSelect.value||'700';
+    ctx.font = `${fontWeight} ${fontSize}px Inter, system-ui, sans-serif`;
+    ctx.fillStyle = '#fff';
+    ctx.textBaseline = 'top';
+    ctx.textAlign = 'left';
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowBlur = 6;
+
+    const textX = logoMarginX + lw + 12;
+    const textY = parseFloat(textYInput.value)||logoY;
+    const maxWidth = canvas.width - textX - 12;
+    wrapText(ctx, txt, textX, textY, maxWidth, fontSize*1.2);
+
+    ctx.shadowBlur = 0;
+  }
+
   rafId = requestAnimationFrame(drawFrame);
+}
 
-  // Video upload handling
-  videoFile.addEventListener('change', async (ev) => {
-    const f = ev.target.files && ev.target.files[0];
-    if(!f) return;
-    // create object URL
-    const url = URL.createObjectURL(f);
-    videoEl.src = url;
-    try {
-      await videoEl.play();
-    } catch (err) {
-      // autoplay may be blocked; user can press play on video element if we add it
-    }
-    status.textContent = `Status: video loaded (${Math.round(f.size/1024/1024)} MB)`;
-  });
+rafId = requestAnimationFrame(drawFrame);
 
-  // Logo upload override
-  logoFile.addEventListener('change', (ev) => {
-    const f = ev.target.files && ev.target.files[0];
-    if(!f) return;
-    const url = URL.createObjectURL(f);
-    logoImg = new Image();
-    logoImg.src = url;
-    logoImg.onload = () => {
-      status.textContent = 'Status: logo updated';
-    };
-  });
+// Video upload
+videoFile.addEventListener('change', async e=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const url = URL.createObjectURL(f);
+  videoEl.src = url;
+  try { await videoEl.play(); } catch{}
+  status.textContent = `Status: video loaded (${Math.round(f.size/1024/1024)} MB)`;
+});
 
-  // Recording: capture canvas stream
-  startRecordBtn.addEventListener('click', () => {
-    if(mediaRecorder) {
-      status.textContent = 'Status: already recording';
-      return;
-    }
-    const stream = canvas.captureStream(30); // 30fps
-    const options = { mimeType: 'video/webm; codecs=vp9' };
-    try {
-      mediaRecorder = new MediaRecorder(stream, options);
-    } catch (e) {
-      // fallback to default if vp9 not supported
-      mediaRecorder = new MediaRecorder(stream);
-    }
+// Logo upload
+logoFile.addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const url = URL.createObjectURL(f);
+  logoImg = new Image();
+  logoImg.src = url;
+  logoImg.onload = ()=>{ status.textContent = 'Status: logo updated'; };
+});
 
-    recordingChunks = [];
-    mediaRecorder.ondataavailable = (ev) => {
-      if(ev.data && ev.data.size) recordingChunks.push(ev.data);
-    };
+// Recording
+startRecordBtn.addEventListener('click', ()=>{
+  if(mediaRecorder){ status.textContent='Already recording'; return; }
+  const stream = canvas.captureStream(30);
+  try { mediaRecorder = new MediaRecorder(stream,{mimeType:'video/webm; codecs=vp9'}); } 
+  catch(e){ mediaRecorder = new MediaRecorder(stream); }
+  recordingChunks = [];
+  mediaRecorder.ondataavailable = e=>{ if(e.data.size) recordingChunks.push(e.data); };
+  mediaRecorder.onstart = ()=>{
+    status.textContent='Status: recording...';
+    startRecordBtn.disabled=true;
+    stopRecordBtn.disabled=false;
+    downloadBtn.disabled=true;
+    convertMp4Btn.disabled=true;
+  };
+  mediaRecorder.onstop=()=>{
+    recordedBlob = new Blob(recordingChunks,{type:'video/webm'});
+    downloadBtn.disabled=false;
+    convertMp4Btn.disabled=false;
+    startRecordBtn.disabled=false;
+    stopRecordBtn.disabled=true;
+    status.textContent=`Status: recording complete — ${Math.round(recordedBlob.size/1024/1024)} MB`;
+  };
+  mediaRecorder.onerror=e=>{
+    status.textContent='Recording error: '+e;
+    startRecordBtn.disabled=false;
+    stopRecordBtn.disabled=true;
+  };
+  mediaRecorder.start();
+});
 
-    mediaRecorder.onstart = () => {
-      status.textContent = 'Status: recording...';
-      startRecordBtn.disabled = true;
-      stopRecordBtn.disabled = false;
-      downloadBtn.disabled = true;
-      convertMp4Btn.disabled = true;
-    };
+stopRecordBtn.addEventListener('click', ()=>{
+  if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop();
+});
 
-    mediaRecorder.onstop = async () => {
-      recordedBlob = new Blob(recordingChunks, { type: 'video/webm' });
-      downloadBtn.disabled = false;
-      convertMp4Btn.disabled = false;
-      startRecordBtn.disabled = false;
-      stopRecordBtn.disabled = true;
-      status.textContent = `Status: recording complete — ${Math.round(recordedBlob.size/1024/1024)} MB`;
-    };
+downloadBtn.addEventListener('click', ()=>{
+  if(!recordedBlob) return;
+  const url = URL.createObjectURL(recordedBlob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download='template-output.webm';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  status.textContent='Status: webm downloaded';
+});
 
-    mediaRecorder.onerror = (err) => {
-      status.textContent = 'Recording error: ' + err;
-      startRecordBtn.disabled = false;
-      stopRecordBtn.disabled = true;
-    };
+// Reset
+resetBtn.addEventListener('click', ()=>{
+  zoomInput.value=1;
+  moveXInput.value=0;
+  moveYInput.value=0;
+  fontSizeInput.value=22;
+  fontWeightSelect.value='700';
+  textInput.value='your text here';
+  textYInput.value=12;
+  logoSizeInput.value=56;
+  logoYInput.value=12;
+  status.textContent='Status: controls reset';
+});
 
-    mediaRecorder.start();
-  });
-
-  stopRecordBtn.addEventListener('click', () => {
-    if(mediaRecorder && mediaRecorder.state === 'recording') {
-      mediaRecorder.stop();
-      mediaRecorder = null;
-    }
-  });
-
-  downloadBtn.addEventListener('click', () => {
-    if(!recordedBlob) return;
-    const url = URL.createObjectURL(recordedBlob);
+// MP4 conversion
+convertMp4Btn.addEventListener('click', async ()=>{
+  if(!recordedBlob){ alert('No recording.'); return; }
+  if(!confirm('Convert WEBM → MP4 in browser? This may be slow.')) return;
+  convertMp4Btn.disabled=true;
+  status.textContent='Status: loading ffmpeg...';
+  try{
+    const { createFFmpeg, fetchFile } = await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.11/dist/ffmpeg.min.js');
+    const ffmpeg = createFFmpeg({ log:true });
+    await ffmpeg.load();
+    status.textContent='Status: converting to MP4...';
+    const arrayBuffer = await recordedBlob.arrayBuffer();
+    ffmpeg.FS('writeFile','input.webm',new Uint8Array(arrayBuffer));
+    await ffmpeg.run('-i','input.webm','-c:v','libx264','-preset','veryfast','-crf','23','-c:a','aac','-b:a','128k','output.mp4');
+    const data = ffmpeg.FS('readFile','output.mp4');
+    const mp4Blob = new Blob([data.buffer],{type:'video/mp4'});
+    const url = URL.createObjectURL(mp4Blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'template-output.webm';
+    a.href=url;
+    a.download='template-output.mp4';
     document.body.appendChild(a);
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-    status.textContent = 'Status: webm downloaded';
-  });
+    status.textContent='Status: MP4 ready and downloaded';
+  } catch(err){
+    console.error(err);
+    alert('Conversion failed or not supported.');
+    status.textContent='Status: conversion failed';
+  } finally{ convertMp4Btn.disabled=false; }
+});
 
-  resetBtn.addEventListener('click', () => {
-    zoomInput.value = 1;
-    moveXInput.value = 0;
-    moveYInput.value = 0;
-    fontSizeInput.value = 22;
-    fontWeightSelect.value = '700';
-    textInput.value = 'your text here';
-    status.textContent = 'Status: controls reset';
-  });
-
-  // Experimental MP4 conversion using ffmpeg.wasm
-  // Note: heavy CPU + memory; not guaranteed to be fast. We enable the button only after a recording exists.
-  convertMp4Btn.addEventListener('click', async () => {
-    if(!recordedBlob) {
-      alert('No recording available to convert. Please record first.');
-      return;
-    }
-
-    // ask user for confirmation
-    if(!confirm('Convert WEBM → MP4 in browser? This can be slow and CPU intensive. Proceed?')) return;
-
-    convertMp4Btn.disabled = true;
-    status.textContent = 'Status: loading ffmpeg (this may take a few seconds)...';
-
-    // Lazy-load ffmpeg.wasm (from unpkg)
-    try {
-      // dynamic import
-      const { createFFmpeg, fetchFile } = await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.11/dist/ffmpeg.min.js');
-      const ffmpeg = createFFmpeg({ log: true });
-      await ffmpeg.load();
-
-      status.textContent = 'Status: converting to MP4 (this may take a while)...';
-
-      // write the webm blob into FS
-      const arrayBuffer = await recordedBlob.arrayBuffer();
-      ffmpeg.FS('writeFile', 'input.webm', new Uint8Array(arrayBuffer));
-
-      // Run conversion: transcode to h264 + aac (may not be blazingly fast)
-      // Use conservative preset to increase compatibility
-      await ffmpeg.run(
-        '-i','input.webm',
-        '-c:v','libx264',
-        '-preset','veryfast',
-        '-crf','23',
-        '-c:a','aac',
-        '-b:a','128k',
-        'output.mp4'
-      );
-
-      // read result
-      const data = ffmpeg.FS('readFile', 'output.mp4');
-      const mp4Blob = new Blob([data.buffer], { type: 'video/mp4' });
-
-      // download
-      const url = URL.createObjectURL(mp4Blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'template-output.mp4';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-
-      status.textContent = 'Status: MP4 ready and downloaded';
-    } catch (err) {
-      console.error(err);
-      alert('Conversion failed or is not supported in this browser/device. You can download the WEBM and convert offline with HandBrake or ffmpeg.');
-      status.textContent = 'Status: conversion failed';
-    } finally {
-      convertMp4Btn.disabled = false;
-    }
-  });
-
-  // enable/disable convert button when a recording exists
-  // simple watcher: when recordedBlob changes
-  const blobObserver = new MutationObserver(() => {
-    convertMp4Btn.disabled = !recordedBlob;
-    downloadBtn.disabled = !recordedBlob;
-  });
-  blobObserver.observe(document.body, { attributes: false, childList: false, subtree: false });
-
-  // Accessibility hint: handle unload: stop RAF and production clean-up
-  window.addEventListener('beforeunload', () => {
-    if(rafId) cancelAnimationFrame(rafId);
-  });
+window.addEventListener('beforeunload', ()=>{ if(rafId) cancelAnimationFrame(rafId); });
 
 </script>
 </body>
