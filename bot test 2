@@ -3,388 +3,168 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>9:16 Video Template — Logo + Text (Browser-Compatible)</title>
+<title>9:16 Video Template — Chrome-Friendly</title>
 <style>
-  :root{
-    --bg:#0f1720;
-    --panel:#0b1220;
-    --muted:#94a3b8;
-    --accent:#06b6d4;
-    --card:#0b1220;
-  }
-  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;}
-  body{
-    background: linear-gradient(180deg,var(--bg), #071022 140%);
-    color:#e6eef6;
-    display:flex;
-    gap:18px;
-    align-items:flex-start;
-    justify-content:center;
-    padding:24px;
-    box-sizing:border-box;
-  }
-  .left { width:380px; display:flex; flex-direction:column; gap:14px; align-items:center; }
-  .frame-card { width:360px; height:640px; background:#000; border-radius:12px; overflow:hidden; box-shadow:0 8px 30px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); position: relative; }
-  canvas { display:block; width:100%; height:100%; background:#000; }
-  .controls { width:360px; background:var(--card); border-radius:12px; padding:12px; box-sizing:border-box; box-shadow: 0 6px 20px rgba(2,6,23,0.6); }
-  .controls h3 { margin:0 0 8px 0; font-size:15px; }
-  label { display:block; font-size:13px; color:var(--muted); margin-top:8px; }
-  input[type="file"], input[type="range"], input[type="text"], select { width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit; box-sizing:border-box; }
-  .row { display:flex; gap:8px; }
-  .btn { background: linear-gradient(180deg,var(--accent), #0891b2); color:#032025; border:none; padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:600; box-shadow:0 6px 18px rgba(6,182,212,0.14);}
-  .btn.ghost { background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04);}
-  .muted { color:var(--muted); font-size:13px; margin-top:6px; }
-  .side { width:360px; display:flex; flex-direction:column; gap:12px; }
-  .panel { background:var(--panel); padding:12px; border-radius:12px; box-shadow: 0 6px 20px rgba(2,6,23,0.6); }
-  .preview-meta { font-size:13px; color:var(--muted); margin-top:6px; }
-  .flex-between { display:flex; justify-content:space-between; align-items:center; gap:10px; }
-  footer { font-size:12px; color:var(--muted); text-align:center; margin-top:6px; }
-  @media (max-width:900px){
-    body { flex-direction:column; align-items:center; padding:12px; }
-    .left,.side { width:100%; max-width:420px; }
-  }
+:root{
+  --bg:#0f1720; --panel:#0b1220; --muted:#94a3b8; --accent:#06b6d4; --card:#0b1220;
+}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;}
+body{
+  background: linear-gradient(180deg,var(--bg), #071022 140%);
+  color:#e6eef6;
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  justify-content:center;
+  padding:24px;
+  box-sizing:border-box;
+}
+.left { width:380px; display:flex; flex-direction:column; gap:14px; align-items:center; }
+.frame-card { width:360px; height:640px; background:#000; border-radius:12px; overflow:hidden; box-shadow:0 8px 30px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); position: relative; }
+canvas { display:block; width:100%; height:100%; background:#000; }
+.controls { width:360px; background:var(--card); border-radius:12px; padding:12px; box-sizing:border-box; box-shadow: 0 6px 20px rgba(2,6,23,0.6); }
+.controls h3 { margin:0 0 8px 0; font-size:15px; }
+label { display:block; font-size:13px; color:var(--muted); margin-top:8px; }
+input[type="file"], input[type="range"], input[type="text"], select { width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit; box-sizing:border-box; }
+.row { display:flex; gap:8px; }
+.btn { background: linear-gradient(180deg,var(--accent), #0891b2); color:#032025; border:none; padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:600; box-shadow:0 6px 18px rgba(6,182,212,0.14);}
+.btn.ghost { background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04);}
+.muted { color:var(--muted); font-size:13px; margin-top:6px; }
+.side { width:360px; display:flex; flex-direction:column; gap:12px; }
+.panel { background:var(--panel); padding:12px; border-radius:12px; box-shadow: 0 6px 20px rgba(2,6,23,0.6); }
+.preview-meta { font-size:13px; color:var(--muted); margin-top:6px; }
+.flex-between { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+footer { font-size:12px; color:var(--muted); text-align:center; margin-top:6px; }
+@media (max-width:900px){
+  body { flex-direction:column; align-items:center; padding:12px; }
+  .left,.side { width:100%; max-width:420px; }
+}
 </style>
 </head>
 <body>
 
 <div class="left">
-  <h2 style="margin:0;font-size:18px;">Template Editor — 9:16 (TikTok)</h2>
+<h2 style="margin:0;font-size:18px;">Template Editor — 9:16</h2>
 
-  <div class="frame-card" id="frameCard" aria-label="9 by 16 preview">
-    <canvas id="outputCanvas" width="360" height="640"></canvas>
+<div class="frame-card">
+  <canvas id="outputCanvas" width="360" height="640"></canvas>
+</div>
+
+<div class="controls">
+<h3>Inputs & Controls</h3>
+<label>Upload Video<input id="videoFile" type="file" accept="video/*"/></label>
+<label>Logo (GIF or image)<input id="logoFile" type="file" accept="image/*,image/gif"/></label>
+<label>Logo size<input id="logoSize" type="range" min="20" max="200" step="1" value="56"/></label>
+<label>Logo Y position<input id="logoY" type="range" min="0" max="600" step="1" value="12"/></label>
+<label>Overlay Text<input id="textInput" type="text" value="your text here"/></label>
+<label>Text Y position<input id="textY" type="range" min="0" max="600" step="1" value="12"/></label>
+
+<div class="row" style="margin-top:8px;">
+  <div style="flex:1;">
+    <label>Font size<input id="fontSize" type="range" min="14" max="48" value="22"/></label>
   </div>
-
-  <div class="controls">
-    <h3>Inputs & Controls</h3>
-
-    <label>Upload Video
-      <input id="videoFile" type="file" accept="video/*" />
+  <div style="width:120px;">
+    <label>Font weight
+      <select id="fontWeight"><option value="600">Semi-bold</option><option value="700" selected>Bold</option><option value="800">Extra-bold</option></select>
     </label>
-
-    <label>Logo (GIF or image)
-      <input id="logoFile" type="file" accept="image/*,image/gif" />
-    </label>
-
-    <label>Logo size
-      <input id="logoSize" type="range" min="20" max="200" step="1" value="56" />
-    </label>
-
-    <label>Logo Y position
-      <input id="logoY" type="range" min="0" max="600" step="1" value="12" />
-    </label>
-
-    <label>Overlay Text
-      <input id="textInput" type="text" value="your text here" />
-    </label>
-
-    <label>Text Y position
-      <input id="textY" type="range" min="0" max="600" step="1" value="12" />
-    </label>
-
-    <div class="row" style="margin-top:8px;">
-      <div style="flex:1;">
-        <label>Font size
-          <input id="fontSize" type="range" min="14" max="48" value="22" />
-        </label>
-      </div>
-      <div style="width:120px;">
-        <label>Font weight
-          <select id="fontWeight">
-            <option value="600">Semi-bold</option>
-            <option value="700" selected>Bold</option>
-            <option value="800">Extra-bold</option>
-          </select>
-        </label>
-      </div>
-    </div>
-
-    <label>Zoom
-      <input id="zoom" type="range" min="1" max="3" step="0.01" value="1" />
-    </label>
-
-    <label>Move X (left / right)
-      <input id="moveX" type="range" min="-400" max="400" step="1" value="0" />
-    </label>
-
-    <label>Move Y (up / down)
-      <input id="moveY" type="range" min="-400" max="400" step="1" value="0" />
-    </label>
-
-    <div style="display:flex;gap:8px;margin-top:10px;">
-      <button id="startRecord" class="btn">Start Recording</button>
-      <button id="stopRecord" class="btn ghost" disabled>Stop</button>
-      <button id="downloadBtn" class="btn ghost" disabled>Download WEBM</button>
-    </div>
-
-    <div style="display:flex;gap:8px;margin-top:10px;">
-      <button id="convertMp4" class="btn ghost" disabled>Convert → MP4 (experimental)</button>
-    </div>
-
-    <div class="muted" id="status">Status: idle</div>
   </div>
+</div>
 
-  <footer>Visitors do not need accounts. Host on GitHub Pages / Netlify / Vercel.</footer>
+<label>Zoom<input id="zoom" type="range" min="1" max="3" step="0.01" value="1"/></label>
+<label>Move X (left / right)<input id="moveX" type="range" min="-400" max="400" step="1" value="0"/></label>
+<label>Move Y (up / down)<input id="moveY" type="range" min="-400" max="400" step="1" value="0"/></label>
+
+<div style="display:flex;gap:8px;margin-top:10px;">
+<button id="startRecord" class="btn">Start Recording</button>
+<button id="stopRecord" class="btn ghost" disabled>Stop</button>
+<button id="downloadBtn" class="btn ghost" disabled>Download WEBM</button>
+</div>
+
+<div style="display:flex;gap:8px;margin-top:10px;">
+<button id="convertMp4" class="btn ghost" disabled>Convert → MP4 (experimental)</button>
+</div>
+
+<div class="muted" id="status">Status: idle</div>
+</div>
+<footer>Visitors do not need accounts. Host on GitHub Pages / Netlify / Vercel.</footer>
 </div>
 
 <div class="side">
-  <div class="panel">
-    <div class="flex-between">
-      <strong>Preview info</strong>
-      <span class="preview-meta">9:16 • 360×640 canvas</span>
-    </div>
-    <p class="muted">Logo position: adjustable. Text appears next to the logo with wrapping. Video can be zoomed and panned inside the frame.</p>
-  </div>
-
-  <div class="panel">
-    <strong>Download & conversion notes</strong>
-    <ul style="color:var(--muted);padding-left:18px;margin:8px 0;">
-      <li>Recording exports as <strong>.webm</strong>. MP4 conversion in-browser may be slow.</li>
-      <li>If MP4 conversion is slow, download WEBM and convert offline with HandBrake or ffmpeg.</li>
-    </ul>
-    <div style="display:flex;gap:8px;margin-top:6px;">
-      <button id="resetBtn" class="btn ghost">Reset Controls</button>
-    </div>
-  </div>
-
-  <div class="panel">
-    <strong>Preview / Quick tips</strong>
-    <p class="muted">Recommended: use a reasonably small video (under 100MB) for best browser performance.</p>
-  </div>
+<div class="panel">
+<div class="flex-between"><strong>Preview info</strong><span class="preview-meta">9:16 • 360×640 canvas</span></div>
+<p class="muted">Logo position adjustable. Text appears next to logo with wrapping. Video can be zoomed and panned.</p>
 </div>
 
-<script type="module">
-const canvas = document.getElementById('outputCanvas');
-const ctx = canvas.getContext('2d', { alpha: false });
+<div class="panel">
+<strong>Download & conversion notes</strong>
+<ul style="color:var(--muted);padding-left:18px;margin:8px 0;">
+<li>Recording exports as <strong>.webm</strong>. MP4 conversion in-browser may be slow.</li>
+<li>If MP4 conversion is slow, download WEBM and convert offline with HandBrake or ffmpeg.</li>
+</ul>
+<div style="display:flex;gap:8px;margin-top:6px;">
+<button id="resetBtn" class="btn ghost">Reset Controls</button>
+</div>
+</div>
 
-const videoFile = document.getElementById('videoFile');
-const logoFile = document.getElementById('logoFile');
-const textInput = document.getElementById('textInput');
-const fontSizeInput = document.getElementById('fontSize');
-const fontWeightSelect = document.getElementById('fontWeight');
-const zoomInput = document.getElementById('zoom');
-const moveXInput = document.getElementById('moveX');
-const moveYInput = document.getElementById('moveY');
-const textYInput = document.getElementById('textY');
-const logoSizeInput = document.getElementById('logoSize');
-const logoYInput = document.getElementById('logoY');
+<div class="panel">
+<strong>Preview / Quick tips</strong>
+<p class="muted">Recommended: use a reasonably small video (under 100MB).</p>
+</div>
+</div>
 
-const startRecordBtn = document.getElementById('startRecord');
-const stopRecordBtn = document.getElementById('stopRecord');
-const downloadBtn = document.getElementById('downloadBtn');
-const convertMp4Btn = document.getElementById('convertMp4');
-const resetBtn = document.getElementById('resetBtn');
-const status = document.getElementById('status');
+<!-- Load ffmpeg.wasm from CDN for Chrome without modules -->
+<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.11/dist/ffmpeg.min.js"></script>
+<script>
+const canvas=document.getElementById('outputCanvas');
+const ctx=canvas.getContext('2d',{alpha:false});
+const videoFile=document.getElementById('videoFile');
+const logoFile=document.getElementById('logoFile');
+const textInput=document.getElementById('textInput');
+const fontSizeInput=document.getElementById('fontSize');
+const fontWeightSelect=document.getElementById('fontWeight');
+const zoomInput=document.getElementById('zoom');
+const moveXInput=document.getElementById('moveX');
+const moveYInput=document.getElementById('moveY');
+const textYInput=document.getElementById('textY');
+const logoSizeInput=document.getElementById('logoSize');
+const logoYInput=document.getElementById('logoY');
+const startRecordBtn=document.getElementById('startRecord');
+const stopRecordBtn=document.getElementById('stopRecord');
+const downloadBtn=document.getElementById('downloadBtn');
+const convertMp4Btn=document.getElementById('convertMp4');
+const resetBtn=document.getElementById('resetBtn');
+const status=document.getElementById('status');
 
-let videoEl = document.createElement('video');
-videoEl.muted = true;
-videoEl.playsInline = true;
-videoEl.loop = true;
-videoEl.autoplay = false;
+let videoEl=document.createElement('video'); videoEl.muted=true; videoEl.playsInline=true; videoEl.loop=true;
+let logoImg=new Image(); logoImg.src='YOUR_LOGO.png';
+let recordingChunks=[], mediaRecorder=null, recordedBlob=null, rafId=null;
 
-let logoImg = new Image();
-logoImg.src = 'YOUR_LOGO.png';
+function wrapText(ctx,text,x,y,maxWidth,lineHeight){ const words=text.split(' '); let line=''; for(let n=0;n<words.length;n++){ const testLine=line+words[n]+' '; const metrics=ctx.measureText(testLine); if(metrics.width>maxWidth&&n>0){ ctx.fillText(line,x,y); line=words[n]+' '; y+=lineHeight; } else line=testLine; } ctx.fillText(line,x,y); }
 
-let recordingChunks = [];
-let mediaRecorder = null;
-let recordedBlob = null;
-let rafId = null;
-
-// Helper: wrap text
-function wrapText(ctx, text, x, y, maxWidth, lineHeight){
-  const words = text.split(' ');
-  let line = '';
-  for (let n = 0; n < words.length; n++){
-    const testLine = line + words[n] + ' ';
-    const metrics = ctx.measureText(testLine);
-    if(metrics.width > maxWidth && n > 0){
-      ctx.fillText(line, x, y);
-      line = words[n] + ' ';
-      y += lineHeight;
-    } else {
-      line = testLine;
-    }
-  }
-  ctx.fillText(line, x, y);
-}
-
-// Draw loop
 function drawFrame(){
-  ctx.fillStyle = '#000';
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle='#000'; ctx.fillRect(0,0,canvas.width,canvas.height);
+if(videoEl.readyState>=2){ const vw=videoEl.videoWidth, vh=videoEl.videoHeight; if(vw&&vh){ const canvasW=canvas.width, canvasH=canvas.height; const scale=parseFloat(zoomInput.value)||1; const baseScale=Math.max(canvasW/vw,canvasH/vh); const drawW=vw*baseScale*scale, drawH=vh*baseScale*scale; const moveX=parseFloat(moveXInput.value)||0, moveY=parseFloat(moveYInput.value)||0; const dx=(canvasW/2)-(drawW/2)+moveX, dy=(canvasH/2)-(drawH/2)+moveY; ctx.drawImage(videoEl,0,0,vw,vh,dx,dy,drawW,drawH); } }
+const logoMarginX=12, logoHeight=parseFloat(logoSizeInput.value)||56, logoY=parseFloat(logoYInput.value)||12;
+if(logoImg&&logoImg.complete&&logoImg.naturalWidth){ const aspect=logoImg.naturalWidth/logoImg.naturalHeight, lw=logoHeight*aspect, lh=logoHeight; ctx.drawImage(logoImg,logoMarginX,logoY,lw,lh);
+const txt=textInput.value||'', fontSize=parseInt(fontSizeInput.value||22,10), fontWeight=fontWeightSelect.value||'700';
+ctx.font=`${fontWeight} ${fontSize}px Inter, system-ui, sans-serif`; ctx.fillStyle='#fff'; ctx.textBaseline='top'; ctx.textAlign='left'; ctx.shadowColor='rgba(0,0,0,0.6)'; ctx.shadowBlur=6;
+const textX=logoMarginX+lw+12, textY=parseFloat(textYInput.value)||logoY, maxWidth=canvas.width-textX-12; wrapText(ctx,txt,textX,textY,maxWidth,fontSize*1.2); ctx.shadowBlur=0; }
+rafId=requestAnimationFrame(drawFrame); }
+rafId=requestAnimationFrame(drawFrame);
 
-  if(videoEl.readyState >= 2){
-    const vw = videoEl.videoWidth;
-    const vh = videoEl.videoHeight;
-    if(vw && vh){
-      const canvasW = canvas.width;
-      const canvasH = canvas.height;
+videoFile.addEventListener('change',async e=>{ const f=e.target.files[0]; if(!f) return; videoEl.src=URL.createObjectURL(f); try{ await videoEl.play(); }catch{} status.textContent=`Status: video loaded (${Math.round(f.size/1024/1024)} MB)`; });
+logoFile.addEventListener('change',e=>{ const f=e.target.files[0]; if(!f) return; logoImg=new Image(); logoImg.src=URL.createObjectURL(f); logoImg.onload=()=>{status.textContent='Status: logo updated';}; });
 
-      const scale = parseFloat(zoomInput.value) || 1;
-      const baseScale = Math.max(canvasW/vw, canvasH/vh);
-      const drawW = vw*baseScale*scale;
-      const drawH = vh*baseScale*scale;
-      const moveX = parseFloat(moveXInput.value)||0;
-      const moveY = parseFloat(moveYInput.value)||0;
-      const dx = (canvasW/2) - (drawW/2) + moveX;
-      const dy = (canvasH/2) - (drawH/2) + moveY;
+startRecordBtn.addEventListener('click',()=>{ if(mediaRecorder){status.textContent='Already recording'; return;} const stream=canvas.captureStream(30); let options={mimeType:'video/webm; codecs=vp8'}; if(!MediaRecorder.isTypeSupported(options.mimeType)) options={mimeType:'video/webm'}; mediaRecorder=new MediaRecorder(stream,options); recordingChunks=[]; mediaRecorder.ondataavailable=e=>{if(e.data.size) recordingChunks.push(e.data);}; mediaRecorder.onstart=()=>{status.textContent='Status: recording...'; startRecordBtn.disabled=true; stopRecordBtn.disabled=false; downloadBtn.disabled=true; convertMp4Btn.disabled=true;}; mediaRecorder.onstop=()=>{recordedBlob=new Blob(recordingChunks,{type:'video/webm'}); downloadBtn.disabled=false; convertMp4Btn.disabled=false; startRecordBtn.disabled=false; stopRecordBtn.disabled=true; status.textContent=`Status: recording complete — ${Math.round(recordedBlob.size/1024/1024)} MB`;}; mediaRecorder.onerror=e=>{status.textContent='Recording error:'+e; startRecordBtn.disabled=false; stopRecordBtn.disabled=true;}; mediaRecorder.start(); });
 
-      ctx.drawImage(videoEl, 0,0,vw,vh,dx,dy,drawW,drawH);
-    }
-  }
+stopRecordBtn.addEventListener('click',()=>{ if(mediaRecorder&&mediaRecorder.state==='recording') mediaRecorder.stop(); });
+downloadBtn.addEventListener('click',()=>{ if(!recordedBlob) return; const url=URL.createObjectURL(recordedBlob); const a=document.createElement('a'); a.href=url; a.download='template-output.webm'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); status.textContent='Status: webm downloaded'; });
 
-  // Draw logo
-  const logoMarginX = 12;
-  const logoHeight = parseFloat(logoSizeInput.value)||56;
-  const logoY = parseFloat(logoYInput.value)||12;
-  if(logoImg && logoImg.complete && logoImg.naturalWidth){
-    const aspect = logoImg.naturalWidth/logoImg.naturalHeight;
-    const lw = logoHeight * aspect;
-    const lh = logoHeight;
-    ctx.drawImage(logoImg, logoMarginX, logoY, lw, lh);
+resetBtn.addEventListener('click',()=>{ zoomInput.value=1; moveXInput.value=0; moveYInput.value=0; fontSizeInput.value=22; fontWeightSelect.value='700'; textInput.value='your text here'; textYInput.value=12; logoSizeInput.value=56; logoYInput.value=12; status.textContent='Status: controls reset'; });
 
-    // Draw text next to logo
-    const txt = textInput.value || '';
-    const fontSize = parseInt(fontSizeInput.value||22,10);
-    const fontWeight = fontWeightSelect.value||'700';
-    ctx.font = `${fontWeight} ${fontSize}px Inter, system-ui, sans-serif`;
-    ctx.fillStyle = '#fff';
-    ctx.textBaseline = 'top';
-    ctx.textAlign = 'left';
-    ctx.shadowColor = 'rgba(0,0,0,0.6)';
-    ctx.shadowBlur = 6;
+convertMp4Btn.addEventListener('click',async ()=>{ if(!recordedBlob){alert('No recording.'); return;} if(!confirm('Convert WEBM → MP4 in browser? This may be slow.')) return; convertMp4Btn.disabled=true; status.textContent='Status: loading ffmpeg...'; try{ const ffmpeg=FFmpeg.createFFmpeg({log:true}); await ffmpeg.load(); status.textContent='Status: converting to MP4...'; const arrayBuffer=await recordedBlob.arrayBuffer(); ffmpeg.FS('writeFile','input.webm',new Uint8Array(arrayBuffer)); await ffmpeg.run('-i','input.webm','-c:v','libx264','-preset','veryfast','-crf','23','-c:a','aac','-b:a','128k','output.mp4'); const data=ffmpeg.FS('readFile','output.mp4'); const mp4Blob=new Blob([data.buffer],{type:'video/mp4'}); const url=URL.createObjectURL(mp4Blob); const a=document.createElement('a'); a.href=url; a.download='template-output.mp4'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); status.textContent='Status: MP4 ready and downloaded'; }catch(err){console.error(err); alert('Conversion failed or not supported.'); status.textContent='Status: conversion failed';} finally{convertMp4Btn.disabled=false;} });
 
-    const textX = logoMarginX + lw + 12;
-    const textY = parseFloat(textYInput.value)||logoY;
-    const maxWidth = canvas.width - textX - 12;
-    wrapText(ctx, txt, textX, textY, maxWidth, fontSize*1.2);
-
-    ctx.shadowBlur = 0;
-  }
-
-  rafId = requestAnimationFrame(drawFrame);
-}
-
-rafId = requestAnimationFrame(drawFrame);
-
-// Video upload
-videoFile.addEventListener('change', async e=>{
-  const f = e.target.files[0];
-  if(!f) return;
-  const url = URL.createObjectURL(f);
-  videoEl.src = url;
-  try { await videoEl.play(); } catch{}
-  status.textContent = `Status: video loaded (${Math.round(f.size/1024/1024)} MB)`;
-});
-
-// Logo upload
-logoFile.addEventListener('change', e=>{
-  const f = e.target.files[0];
-  if(!f) return;
-  const url = URL.createObjectURL(f);
-  logoImg = new Image();
-  logoImg.src = url;
-  logoImg.onload = ()=>{ status.textContent = 'Status: logo updated'; };
-});
-
-// Recording
-startRecordBtn.addEventListener('click', ()=>{
-  if(mediaRecorder){ status.textContent='Already recording'; return; }
-  const stream = canvas.captureStream(30);
-
-  // Use VP8 codec for better cross-browser compatibility
-  let options = { mimeType: 'video/webm; codecs=vp8' };
-  if (!MediaRecorder.isTypeSupported(options.mimeType)) options = { mimeType: 'video/webm' };
-  mediaRecorder = new MediaRecorder(stream, options);
-
-  recordingChunks = [];
-  mediaRecorder.ondataavailable = e=>{ if(e.data.size) recordingChunks.push(e.data); };
-  mediaRecorder.onstart = ()=>{
-    status.textContent='Status: recording...';
-    startRecordBtn.disabled=true;
-    stopRecordBtn.disabled=false;
-    downloadBtn.disabled=true;
-    convertMp4Btn.disabled=true;
-  };
-  mediaRecorder.onstop=()=>{
-    recordedBlob = new Blob(recordingChunks,{type:'video/webm'});
-    downloadBtn.disabled=false;
-    convertMp4Btn.disabled=false;
-    startRecordBtn.disabled=false;
-    stopRecordBtn.disabled=true;
-    status.textContent=`Status: recording complete — ${Math.round(recordedBlob.size/1024/1024)} MB`;
-  };
-  mediaRecorder.onerror=e=>{
-    status.textContent='Recording error: '+e;
-    startRecordBtn.disabled=false;
-    stopRecordBtn.disabled=true;
-  };
-  mediaRecorder.start();
-});
-
-stopRecordBtn.addEventListener('click', ()=>{
-  if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop();
-});
-
-downloadBtn.addEventListener('click', ()=>{
-  if(!recordedBlob) return;
-  const url = URL.createObjectURL(recordedBlob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download='template-output.webm';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-  status.textContent='Status: webm downloaded';
-});
-
-// Reset
-resetBtn.addEventListener('click', ()=>{
-  zoomInput.value=1;
-  moveXInput.value=0;
-  moveYInput.value=0;
-  fontSizeInput.value=22;
-  fontWeightSelect.value='700';
-  textInput.value='your text here';
-  textYInput.value=12;
-  logoSizeInput.value=56;
-  logoYInput.value=12;
-  status.textContent='Status: controls reset';
-});
-
-// MP4 conversion
-convertMp4Btn.addEventListener('click', async ()=>{
-  if(!recordedBlob){ alert('No recording.'); return; }
-  if(!confirm('Convert WEBM → MP4 in browser? This may be slow.')) return;
-  convertMp4Btn.disabled=true;
-  status.textContent='Status: loading ffmpeg...';
-  try{
-    const { createFFmpeg } = await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.11/dist/ffmpeg.min.js');
-    const ffmpeg = createFFmpeg({ log:true });
-    await ffmpeg.load();
-    status.textContent='Status: converting to MP4...';
-    const arrayBuffer = await recordedBlob.arrayBuffer();
-    ffmpeg.FS('writeFile','input.webm',new Uint8Array(arrayBuffer));
-    await ffmpeg.run('-i','input.webm','-c:v','libx264','-preset','veryfast','-crf','23','-c:a','aac','-b:a','128k','output.mp4');
-    const data = ffmpeg.FS('readFile','output.mp4');
-    const mp4Blob = new Blob([data.buffer],{type:'video/mp4'});
-    const url = URL.createObjectURL(mp4Blob);
-    const a = document.createElement('a');
-    a.href=url;
-    a.download='template-output.mp4';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-    status.textContent='Status: MP4 ready and downloaded';
-  } catch(err){
-    console.error(err);
-    alert('Conversion failed or not supported.');
-    status.textContent='Status: conversion failed';
-  } finally{ convertMp4Btn.disabled=false; }
-});
-
-window.addEventListener('beforeunload', ()=>{ if(rafId) cancelAnimationFrame(rafId); });
+window.addEventListener('beforeunload',()=>{if(rafId) cancelAnimationFrame(rafId);});
 </script>
 </body>
 </html>
